@@ -1,0 +1,67 @@
+version: "3"
+
+services:
+  
+  historyserver:
+    container_name: historyserver
+    image: bde2020/hadoop-historyserver  
+    ports:
+      - 8188:8188     
+    volumes:
+      - hadoop_historyserver:/hadoop/yarn/timeline      
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 search-test:8088"       
+    env_file:
+      - ../hadoop.env 
+    extra_hosts: 
+      - "search-test:192.168.6.241"
+      - "namenode:192.168.6.241"
+      - "datanode:192.168.6.241"
+      - "historyserver:192.168.6.241"
+      - "resourcemanager:192.168.6.241"
+    networks: 
+      - hadoop
+
+  nodemanager:
+    image: bde2020/hadoop-nodemanager
+    container_name: nodemanager
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+    env_file:
+      - ../hadoop.env
+    extra_hosts: 
+      - "search-test:192.168.6.241"
+      - "namenode:192.168.6.241"
+      - "datanode:192.168.6.241"
+      - "historyserver:192.168.6.241"
+      - "resourcemanager:192.168.6.241"
+    networks: 
+      - hadoop
+
+  resourcemanager:
+    image: bde2020/hadoop-resourcemanager
+    container_name: resourcemanager
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    env_file:
+      - ../hadoop.env
+    ports:
+      - 8088:8088
+      - 8031:8031
+      - 8033:8033
+    extra_hosts: 
+      - "search-test:192.168.6.241"
+      - "namenode:192.168.6.241"
+      - "datanode:192.168.6.241"
+      - "historyserver:192.168.6.241"
+      - "resourcemanager:192.168.6.241"
+    networks: 
+      - hadoop
+
+volumes:
+  hadoop_historyserver:
+
+networks:
+ hadoop:
+  external:
+   name: hadoop

@@ -1,0 +1,36 @@
+# Use root/example as user/password credentials
+version: '3.1'
+services:
+  nacos:
+    image: nacos/nacos-server:1.3.2
+    container_name: nacos
+    ports: 
+      - 8848:8848
+      - 9555:9555
+    privileged: true
+    environment: 
+      PREFER_HOST_MODE: ip #如果支持主机名可以使用hostname,否则使用ip，默认也是ip
+      SPRING_DATASOURCE_PLATFORM: mysql #数据源平台 仅支持mysql或不保存empty
+      NACOS_APPLICATION_PORT: 8848
+      NACOS_SERVER_IP: 192.168.6.241 #多网卡情况下，指定ip或网卡
+      NACOS_SERVERS: 192.168.6.101:8848 192.168.6.241:8848 #集群中其它节点[ip1:port ip2:port ip3:port]
+      MYSQL_DATABASE_NUM: 1
+      MYSQL_SERVICE_HOST: 192.168.6.241 #mysql配置，Master为主节点，Slave为从节点
+      MYSQL_SERVICE_PORT: 3306
+      MYSQL_SERVICE_DB_NAME: nacos
+      MYSQL_SERVICE_USER: root
+      MYSQL_SERVICE_PASSWORD: zjy192.168.6.241
+      MYSQL_MASTER_SERVICE_HOST: 192.168.6.241 #mysql配置，Master为主节点，Slave为从节点
+      MYSQL_MASTER_SERVICE_PORT: 3306
+      MYSQL_MASTER_SERVICE_DB_NAME: nacos
+      MYSQL_MASTER_SERVICE_USER: root
+      MYSQL_MASTER_SERVICE_PASSWORD: zjy192.168.6.241
+    volumes: 
+      - /home/zhangjingyao/docker-compose/blade-env/nacos/logs:/home/nacos/logs
+    network_mode: host
+  sentinel:
+    image: bladex/sentinel-dashboard
+    container_name: sentinel
+    ports: 
+      - 8858:8858
+    network_mode: host

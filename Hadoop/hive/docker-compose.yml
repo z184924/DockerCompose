@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  hive:
+    image: bde2020/hive
+    container_name: hive
+    ports:
+      - 10000:10000
+    env_file:
+      - ../hadoop.env
+    extra_hosts: 
+      - "search-test:192.168.6.241"
+      - "namenode:192.168.6.241"
+      - "datanode:192.168.6.241"
+      - "historyserver:192.168.6.241"
+      - "resourcemanager:192.168.6.241"
+    networks: 
+      - hadoop
+
+networks:
+ hadoop:
+  external:
+   name: hadoop

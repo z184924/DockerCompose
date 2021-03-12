@@ -1,0 +1,53 @@
+version: "3"
+
+services:
+  namenode:
+    image: bde2020/hadoop-namenode
+    container_name: namenode
+    ports:
+      - 9000:9000
+      - 9870:9870
+    volumes:
+      - hadoop_namenode:/hadoop/dfs/name
+    environment:
+      - CLUSTER_NAME=test
+    env_file:
+      - ../hadoop.env
+    extra_hosts: 
+      - "search-test:192.168.6.241"
+      - "namenode:192.168.6.241"
+      - "datanode:192.168.6.241"
+      - "historyserver:192.168.6.241"
+      - "resourcemanager:192.168.6.241"
+    networks: 
+      - hadoop
+
+  datanode:
+    image: bde2020/hadoop-datanode
+    container_name: datanode
+    volumes:
+      - hadoop_datanode:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    ports:
+      - 9864:9864
+      - 9866:9866
+    env_file:
+      - ../hadoop.env
+    extra_hosts: 
+      - "search-test:192.168.6.241"
+      - "namenode:192.168.6.241"
+      - "datanode:192.168.6.241"
+      - "historyserver:192.168.6.241"
+      - "resourcemanager:192.168.6.241"
+    networks: 
+      - hadoop
+
+volumes:
+  hadoop_namenode:
+  hadoop_datanode:
+
+networks:
+ hadoop:
+  external:
+   name: hadoop

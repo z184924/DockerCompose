@@ -1,0 +1,23 @@
+# Use root/example as user/password credentials
+version: '3.1'
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: always
+    volumes:
+      - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/nginx/conf/conf.d/:/etc/nginx/conf.d/
+      - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/nginx/share/:/usr/share/nginx/html/
+      - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/nginx/log/:/var/log/nginx/
+    ports:
+      - 8081:80
+    environment:
+      - NGINX_HOST=search-test
+      - NGINX_PORT=80
+    networks: 
+      - public
+networks:
+  public:
+    external:
+      name: public

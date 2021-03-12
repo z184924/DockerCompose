@@ -1,0 +1,12 @@
+# Use root/example as user/password credentials
+version: '3.1'
+services:
+  redis:
+    image: redis
+    container_name: redis
+    command: redis-server /usr/local/etc/redis/conf/redis.conf
+    ports: 
+      - 6379:6379
+    volumes: 
+      - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/redis/conf:/usr/local/etc/redis/conf
+    network_mode: host    
