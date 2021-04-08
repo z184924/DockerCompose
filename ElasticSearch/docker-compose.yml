@@ -23,6 +23,7 @@ services:
       - 9300:9300
     networks:
       - elastic
+      
   es02:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
     container_name: es02
@@ -43,6 +44,7 @@ services:
       - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/ElasticSearch/data/data02:/usr/share/elasticsearch/data
     networks:
       - elastic
+
   es03:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
     container_name: es03
@@ -63,6 +65,7 @@ services:
       - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/ElasticSearch/data/data03:/usr/share/elasticsearch/data
     networks:
       - elastic
+
   kibana:
     image: docker.elastic.co/kibana/kibana:7.3.2
     container_name: kibana

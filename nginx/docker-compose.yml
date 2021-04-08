@@ -17,6 +17,7 @@ services:
       - NGINX_PORT=80
     networks: 
       - public
+      
 networks:
   public:
     external:

@@ -16,6 +16,7 @@ services:
     privileged: true
     networks: 
       - public
+      
   adminer:
     image: adminer
     container_name: mysql-adminer
@@ -24,6 +25,7 @@ services:
       - 3406:8080  
     networks: 
       - public
+
 networks:
   public:
     external:
