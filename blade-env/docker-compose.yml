@@ -27,10 +27,16 @@ services:
       MYSQL_MASTER_SERVICE_PASSWORD: zjy192.168.6.241
     volumes: 
       - /home/zhangjingyao/docker-compose/blade-env/nacos/logs:/home/nacos/logs
-    network_mode: host
+    networks: 
+      - public
   sentinel:
     image: bladex/sentinel-dashboard
     container_name: sentinel
     ports: 
       - 8858:8858
-    network_mode: host
+    networks: 
+      - public
+networks:
+  public:
+    external:
+      name: public 
