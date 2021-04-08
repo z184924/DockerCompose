@@ -7,6 +7,9 @@ echo nginx start
 cd ../redis
 sh ./run.sh
 echo redis start
+cd ../nacos
+sh ./run.sh
+echo nacos start
 cd ../blade-env
 sh ./run.sh
 echo blade-env start
