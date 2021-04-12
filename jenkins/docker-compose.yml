@@ -1,0 +1,17 @@
+# Use root/example as user/password credentials
+version: '3.1'
+services:
+  jenkins:
+    image: jenkins/jenkins
+    container_name: jenkins
+    restart: always
+    ports: 
+      - 10000:8080
+    volumes: 
+      - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/jenkins/jenkins_home:/var/jenkins_home
+    networks: 
+      - jenkins
+      
+networks:
+  jenkins:
+    driver: bridge  
