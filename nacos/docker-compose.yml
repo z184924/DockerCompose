@@ -8,6 +8,7 @@ services:
       - 8848:8848
       - 9555:9555
     privileged: true
+    restart: always
     environment: 
       PREFER_HOST_MODE: ip #如果支持主机名可以使用hostname,否则使用ip，默认也是ip
       SPRING_DATASOURCE_PLATFORM: mysql #数据源平台 仅支持mysql或不保存empty
