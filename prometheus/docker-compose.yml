@@ -11,7 +11,7 @@ services:
       - 9090:9090
     networks: 
       - public
-  prometheus:
+  node-exporter:
     image: prom/node-exporter
     container_name: node-exporter
     restart: always
