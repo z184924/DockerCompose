@@ -7,15 +7,29 @@ alerting:
   alertmanagers:
   - static_configs:
     - targets:
-rule_files:
+      - 10.0.0.1:9093
+scrape_configs:
   - job_name: prometheus
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ['10.0.0.1:9090']
         labels:
           instance: prometheus
- 
   - job_name: node-exporter
     static_configs:
-      - targets: ['10.0.0.1:9091']
+      - targets: ['10.0.0.1:9100']
         labels:
           instance: localhost
+  - job_name: 'blackbox'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]  # Look for a HTTP 200 response.
+    static_configs:
+      - targets:
+        - http://10.0.0.1:8000/actuator/health
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 10.0.0.1:9115  # The blackbox exporter's real hostname:port.

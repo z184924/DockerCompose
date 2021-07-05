@@ -1,0 +1,24 @@
+global:
+  resolve_timeout: 5m
+  smtp_from: 'support@aminer.cn'
+  smtp_smarthost: 'smtp.aminer.cn:465'
+  smtp_auth_username: 'support@aminer.cn'
+  smtp_auth_password: '******'
+  smtp_require_tls: false
+  smtp_hello: 'aminer.cn'
+
+route:   # route用来设置报警的分发策略
+  group_by: ['alertname']  # 采用哪个标签来作为分组依据
+  group_wait: 10s   # 组告警等待时间。也就是告警产生后等待10s，如果有同组告警一起发出
+  group_interval: 10s  # 两组告警的间隔时间
+  repeat_interval: 20m  # 重复告警的间隔时间，减少相同邮件的发送频率
+  receiver: 'default-receiver'  # 设置默认接收人
+  routes:   # 可以指定哪些组接手哪些消息
+  - receiver: 'default-receiver'  
+    continue: true
+    group_wait: 10s
+
+receivers:
+- name: 'default-receiver'
+  email_configs:
+  - to: 'jingyao.zhang@aminer.cn'
