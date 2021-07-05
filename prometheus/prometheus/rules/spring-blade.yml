@@ -1,0 +1,12 @@
+groups:
+- name: spring-blade
+  rules:
+  - alert: 响应时间过长
+    expr:  probe_duration_seconds{job="blackbox"} > 1 
+    for: 1m  # 告警持续时间，超过这个时间才会发送给alertmanager
+    labels:
+      severity: warning
+    annotations:
+      summary: "Instance {{ $labels.instance }} 响应时间超过1秒"
+      description: "{{ $labels.instance }} of job {{$labels.job}}响应时间超过1秒,当前响应时间[{{ $value }}]."
+# 尽可能把详细告警信息写入summary标签值，因为告警短信/邮件/钉钉发送的内容使用了summary标签中的值。
