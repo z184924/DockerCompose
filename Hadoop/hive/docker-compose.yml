@@ -9,11 +9,11 @@ services:
     env_file:
       - ../hadoop.env
     extra_hosts: 
-      - "search-test:192.168.6.241"
-      - "namenode:192.168.6.241"
-      - "datanode:192.168.6.241"
-      - "historyserver:192.168.6.241"
-      - "resourcemanager:192.168.6.241"
+      - "search-test:10.0.0.252"
+      - "namenode:10.0.0.252"
+      - "datanode:10.0.0.252"
+      - "historyserver:10.0.0.252"
+      - "resourcemanager:10.0.0.252"
     networks: 
       - hadoop
 

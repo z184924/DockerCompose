@@ -8,17 +8,17 @@ services:
       - 9000:9000
       - 9870:9870
     volumes:
-      - hadoop_namenode:/hadoop/dfs/name
+      - /data/DockerCompose/Hadoop/hdfs/namenode/:/hadoop/dfs/name/
     environment:
       - CLUSTER_NAME=test
     env_file:
       - ../hadoop.env
     extra_hosts: 
-      - "search-test:192.168.6.241"
-      - "namenode:192.168.6.241"
-      - "datanode:192.168.6.241"
-      - "historyserver:192.168.6.241"
-      - "resourcemanager:192.168.6.241"
+      - "search-test:10.0.0.252"
+      - "namenode:10.0.0.252"
+      - "datanode:10.0.0.252"
+      - "historyserver:10.0.0.252"
+      - "resourcemanager:10.0.0.252"
     networks: 
       - hadoop
 
@@ -26,7 +26,7 @@ services:
     image: bde2020/hadoop-datanode
     container_name: datanode
     volumes:
-      - hadoop_datanode:/hadoop/dfs/data
+      - /data/DockerCompose/Hadoop/hdfs/datanode/:/hadoop/dfs/data/
     environment:
       SERVICE_PRECONDITION: "namenode:9870"
     ports:
@@ -35,17 +35,13 @@ services:
     env_file:
       - ../hadoop.env
     extra_hosts: 
-      - "search-test:192.168.6.241"
-      - "namenode:192.168.6.241"
-      - "datanode:192.168.6.241"
-      - "historyserver:192.168.6.241"
-      - "resourcemanager:192.168.6.241"
+      - "search-test:10.0.0.252"
+      - "namenode:10.0.0.252"
+      - "datanode:10.0.0.252"
+      - "historyserver:10.0.0.252"
+      - "resourcemanager:10.0.0.252"
     networks: 
       - hadoop
-
-volumes:
-  hadoop_namenode:
-  hadoop_datanode:
 
 networks:
  hadoop:

@@ -8,17 +8,17 @@ services:
     ports:
       - 8188:8188     
     volumes:
-      - hadoop_historyserver:/hadoop/yarn/timeline      
+      - /data/DockerCompose/Hadoop/hdfs-manager/hadoop_historyserver/:/hadoop/yarn/timeline/     
     environment:
       SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 search-test:8088"       
     env_file:
       - ../hadoop.env 
     extra_hosts: 
-      - "search-test:192.168.6.241"
-      - "namenode:192.168.6.241"
-      - "datanode:192.168.6.241"
-      - "historyserver:192.168.6.241"
-      - "resourcemanager:192.168.6.241"
+      - "search-test:10.0.0.252"
+      - "namenode:10.0.0.252"
+      - "datanode:10.0.0.252"
+      - "historyserver:10.0.0.252"
+      - "resourcemanager:10.0.0.252"
     networks: 
       - hadoop
 
@@ -30,11 +30,11 @@ services:
     env_file:
       - ../hadoop.env
     extra_hosts: 
-      - "search-test:192.168.6.241"
-      - "namenode:192.168.6.241"
-      - "datanode:192.168.6.241"
-      - "historyserver:192.168.6.241"
-      - "resourcemanager:192.168.6.241"
+      - "search-test:10.0.0.252"
+      - "namenode:10.0.0.252"
+      - "datanode:10.0.0.252"
+      - "historyserver:10.0.0.252"
+      - "resourcemanager:10.0.0.252"
     networks: 
       - hadoop
 
@@ -50,11 +50,11 @@ services:
       - 8031:8031
       - 8033:8033
     extra_hosts: 
-      - "search-test:192.168.6.241"
-      - "namenode:192.168.6.241"
-      - "datanode:192.168.6.241"
-      - "historyserver:192.168.6.241"
-      - "resourcemanager:192.168.6.241"
+      - "search-test:10.0.0.252"
+      - "namenode:10.0.0.252"
+      - "datanode:10.0.0.252"
+      - "historyserver:10.0.0.252"
+      - "resourcemanager:10.0.0.252"
     networks: 
       - hadoop
 

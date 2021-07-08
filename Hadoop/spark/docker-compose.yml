@@ -11,17 +11,17 @@ services:
       - INIT_DAEMON_STEP=setup_spark
       - "constraint:node==master"
     extra_hosts: 
-      - "search-test:192.168.6.241"
-      - "namenode:192.168.6.241"
-      - "datanode:192.168.6.241"
-      - "historyserver:192.168.6.241"
-      - "resourcemanager:192.168.6.241"
+      - "search-test:10.0.0.252"
+      - "namenode:10.0.0.252"
+      - "datanode:10.0.0.252"
+      - "historyserver:10.0.0.252"
+      - "resourcemanager:10.0.0.252"
     networks: 
       - hadoop
 
-  spark-worker-1:
+  spark-worker:
     image: bde2020/spark-worker
-    container_name: spark-worker-1
+    container_name: spark-worker
     depends_on:
       - spark-master
     ports:
@@ -30,30 +30,11 @@ services:
       - "SPARK_MASTER=spark://search-test:7077"
       - "constraint:node==worker1"
     extra_hosts: 
-      - "search-test:192.168.6.241"
-      - "namenode:192.168.6.241"
-      - "datanode:192.168.6.241"
-      - "historyserver:192.168.6.241"
-      - "resourcemanager:192.168.6.241"
-    networks: 
-      - hadoop
-
-  spark-worker-2:
-    image: bde2020/spark-worker
-    container_name: spark-worker-2
-    depends_on:
-      - spark-master
-    ports:
-      - "8092:8081"
-    environment:
-      - "SPARK_MASTER=spark://search-test:7077"
-      - "constraint:node==worker2"
-    extra_hosts: 
-      - "search-test:192.168.6.241"
-      - "namenode:192.168.6.241"
-      - "datanode:192.168.6.241"
-      - "historyserver:192.168.6.241"
-      - "resourcemanager:192.168.6.241"
+      - "search-test:10.0.0.252"
+      - "namenode:10.0.0.252"
+      - "datanode:10.0.0.252"
+      - "historyserver:10.0.0.252"
+      - "resourcemanager:10.0.0.252"
     networks: 
       - hadoop
 
