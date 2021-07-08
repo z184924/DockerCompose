@@ -4,14 +4,15 @@ services:
   spark-master:
     image: bde2020/spark-master
     container_name: spark-master
+    hostname: spark-master
     ports:
-      - "8090:8080"
+      - "18080:8080"
       - "7077:7077"
     environment:
       - INIT_DAEMON_STEP=setup_spark
       - "constraint:node==master"
     extra_hosts: 
-      - "search-test:10.0.0.252"
+      - "server252:10.0.0.252"
       - "namenode:10.0.0.252"
       - "datanode:10.0.0.252"
       - "historyserver:10.0.0.252"
@@ -22,15 +23,16 @@ services:
   spark-worker:
     image: bde2020/spark-worker
     container_name: spark-worker
+    hostname: spark-worker
     depends_on:
       - spark-master
     ports:
-      - "8091:8081"
+      - "18081:8081"
     environment:
-      - "SPARK_MASTER=spark://search-test:7077"
+      - "SPARK_MASTER=spark://server252:7077"
       - "constraint:node==worker1"
     extra_hosts: 
-      - "search-test:10.0.0.252"
+      - "server252:10.0.0.252"
       - "namenode:10.0.0.252"
       - "datanode:10.0.0.252"
       - "historyserver:10.0.0.252"

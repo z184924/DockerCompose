@@ -4,17 +4,18 @@ services:
   
   historyserver:
     container_name: historyserver
+    hostname: historyserver
     image: bde2020/hadoop-historyserver  
     ports:
       - 8188:8188     
     volumes:
       - /data/DockerCompose/Hadoop/hdfs-manager/hadoop_historyserver/:/hadoop/yarn/timeline/     
     environment:
-      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 search-test:8088"       
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"       
     env_file:
       - ../hadoop.env 
     extra_hosts: 
-      - "search-test:10.0.0.252"
+      - "server252:10.0.0.252"
       - "namenode:10.0.0.252"
       - "datanode:10.0.0.252"
       - "historyserver:10.0.0.252"
@@ -25,12 +26,13 @@ services:
   nodemanager:
     image: bde2020/hadoop-nodemanager
     container_name: nodemanager
+    hostname: nodemanager
     environment:
       SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
     env_file:
       - ../hadoop.env
     extra_hosts: 
-      - "search-test:10.0.0.252"
+      - "server252:10.0.0.252"
       - "namenode:10.0.0.252"
       - "datanode:10.0.0.252"
       - "historyserver:10.0.0.252"
@@ -41,16 +43,19 @@ services:
   resourcemanager:
     image: bde2020/hadoop-resourcemanager
     container_name: resourcemanager
+    hostname: resourcemanager
     environment:
       SERVICE_PRECONDITION: "namenode:9870"
     env_file:
       - ../hadoop.env
     ports:
       - 8088:8088
+      - 8030:8030
       - 8031:8031
+      - 8032:8032
       - 8033:8033
     extra_hosts: 
-      - "search-test:10.0.0.252"
+      - "server252:10.0.0.252"
       - "namenode:10.0.0.252"
       - "datanode:10.0.0.252"
       - "historyserver:10.0.0.252"

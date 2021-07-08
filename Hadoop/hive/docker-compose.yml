@@ -4,12 +4,13 @@ services:
   hive:
     image: bde2020/hive
     container_name: hive
+    hostname: hive
     ports:
       - 10000:10000
     env_file:
       - ../hadoop.env
     extra_hosts: 
-      - "search-test:10.0.0.252"
+      - "server252:10.0.0.252"
       - "namenode:10.0.0.252"
       - "datanode:10.0.0.252"
       - "historyserver:10.0.0.252"

@@ -4,6 +4,7 @@ services:
   namenode:
     image: bde2020/hadoop-namenode
     container_name: namenode
+    hostname: namenode
     ports:
       - 9000:9000
       - 9870:9870
@@ -14,7 +15,7 @@ services:
     env_file:
       - ../hadoop.env
     extra_hosts: 
-      - "search-test:10.0.0.252"
+      - "server252:10.0.0.252"
       - "namenode:10.0.0.252"
       - "datanode:10.0.0.252"
       - "historyserver:10.0.0.252"
@@ -25,6 +26,7 @@ services:
   datanode:
     image: bde2020/hadoop-datanode
     container_name: datanode
+    hostname: datanode
     volumes:
       - /data/DockerCompose/Hadoop/hdfs/datanode/:/hadoop/dfs/data/
     environment:
@@ -35,7 +37,7 @@ services:
     env_file:
       - ../hadoop.env
     extra_hosts: 
-      - "search-test:10.0.0.252"
+      - "server252:10.0.0.252"
       - "namenode:10.0.0.252"
       - "datanode:10.0.0.252"
       - "historyserver:10.0.0.252"
