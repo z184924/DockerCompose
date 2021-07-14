@@ -28,7 +28,7 @@ services:
     container_name: blackbox-exporter
     restart: always
     volumes:
-      - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/prometheus/blackbox_exporter/config:/etc/blackbox_exporter
+      - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/prometheus/blackbox_exporter/config/:/etc/blackbox_exporter/
     ports:
       - 9115:9115
     networks: 
