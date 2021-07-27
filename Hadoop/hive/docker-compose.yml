@@ -9,6 +9,8 @@ services:
       - 10000:10000
     env_file:
       - ../hadoop.env
+    volumes:
+      - /data/DockerCompose/Hadoop/hive/config/:/opt/hive/conf/
     extra_hosts: 
       - "server252:10.0.0.252"
       - "namenode:10.0.0.252"
