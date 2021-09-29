@@ -1,0 +1,19 @@
+version: '3.1'
+services:
+  filebeat:
+    image: logstash:7.3.2
+    container_name: logstash
+    restart: always
+    command: logstash -f ./conf/logstash-filebeat.conf
+    volumes:
+      - ./logstash-filebeat.conf:/usr/share/logstash/conf/logstash-filebeat.conf
+      - ./logstash.yml:/usr/share/logstash/config/logstash.yml
+    ports:
+      - 5044:5044
+    networks: 
+      - public
+      
+networks:
+  public:
+    external:
+      name: public
