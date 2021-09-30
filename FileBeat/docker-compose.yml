@@ -5,7 +5,7 @@ services:
     container_name: filebeat
     restart: always
     volumes:
-      - ./filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
       # 映射到容器中[作为数据源]
       - ./logs:/usr/share/filebeat/logs
       - ./data:/usr/share/filebeat/data
