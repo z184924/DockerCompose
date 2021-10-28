@@ -8,6 +8,7 @@ services:
     command: redis-server /usr/local/etc/redis/conf/redis.conf
     ports: 
       - 6379:6379
+      - 16379:16379
     volumes: 
       - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/redis/conf:/usr/local/etc/redis/conf
     networks: 
