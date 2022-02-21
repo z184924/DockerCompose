@@ -1,0 +1,19 @@
+# Use root/example as user/password credentials
+version: '3.1'
+services:
+  baota:
+    image: pch18/baota
+    container_name: baota
+    privileged: true
+    restart: always
+    ports: 
+      - 15888:8888
+    volumes: 
+      - /Users/aminer/Documents/DockerCompose/baota/wwwroot:/www/wwwroot
+    networks: 
+      - public
+
+networks:
+  public:
+    external:
+      name: public 
