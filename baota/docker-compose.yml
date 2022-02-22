@@ -6,14 +6,8 @@ services:
     container_name: baota
     privileged: true
     restart: always
-    ports: 
-      - 15888:8888
     volumes: 
       - /Users/aminer/Documents/DockerCompose/baota/wwwroot:/www/wwwroot
-    networks: 
-      - public
-
-networks:
-  public:
-    external:
-      name: public 
+    network_mode: host
+      
+      

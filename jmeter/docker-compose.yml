@@ -1,0 +1,9 @@
+# Use root/example as user/password credentials
+version: '3.1'
+services:
+  nginx:
+    image: justb4/jmeter
+    container_name: jmeter
+    volumes: 
+      - /data/DockerCompose/jmeter/jmx/:/jmx/
+    network_mode: host
