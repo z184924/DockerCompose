@@ -8,8 +8,10 @@ services:
     volumes:
       - ./conf/conf.d/:/etc/nginx/conf.d/
       - ./conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./conf/blackip.conf:/etc/nginx/blackip.conf
       - ./share/:/usr/share/nginx/html/
       - ./log/:/var/log/nginx/
+      - ./certs/:/etc/ssl/certs/
     environment:
       - NGINX_HOST=test
       - NGINX_PORT=80

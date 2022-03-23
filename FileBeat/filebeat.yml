@@ -1,12 +1,31 @@
 filebeat.inputs:
   - type: log
     enabled: true
+    tags: ["springblade"]
     paths:
       # 当前目录下的所有.log文件
-      - /home/project/elk/logs/*.log
-    multiline.pattern: ^[\n|\r][0-9]{4}-[0-9]{2}-[0-9]{2}
+      - /home/project/springblade/log/*/*.log
+    multiline.pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{0,3} \[  
     multiline.negate: true
     multiline.match: after
+    fields:
+      event.dataset: springblade
+  - type: log
+    enabled: true
+    tags: ["nginx"]
+    paths:
+      # 当前目录下的所有.log文件
+      - /home/project/nginx/log/access.log
+    fields:
+      event.dataset: nginx.access
+  - type: log
+    enabled: true
+    tags: ["nginx"]
+    paths:
+      # 当前目录下的所有.log文件
+      - /home/project/nginx/log/error.log
+    fields:
+      event.dataset: nginx.error        
   - type: tcp
     enabled: true
     max_message_size: 10MiB
@@ -22,15 +41,17 @@ setup.template.settings:
 setup.dashboards.enabled: false
 
 setup.kibana:
-  host: "http://10.0.0.247:5601"
+  host: "http://10.10.0.81:5601"
 
 # 不直接传输至ES
-#output.elasticsearch:
-# hosts: ["http://es-master:9200"]
-# index: "filebeat-%{[beat.version]}-%{+yyyy.MM.dd}"
+# setup.template.name: "filebeat"
+# setup.template.pattern: "filebeat-*"
+# output.elasticsearch:
+#  hosts: ["http://10.0.0.247:9200"]
+#  index: "filebeat-%{[beat.version]}-%{+yyyy.MM.dd}"
 
 output.logstash:
-  hosts: ["10.0.0.3:5044"]
+  hosts: ["10.10.0.81:5044"]
 
 processors:
   - add_host_metadata: ~
