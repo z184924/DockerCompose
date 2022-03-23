@@ -4,6 +4,7 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
     container_name: es01
     restart: always
+    privileged: true
     environment:
       - node.name=es01
       - cluster.name=es-docker-cluster
@@ -29,6 +30,7 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
     container_name: es02
     restart: always
+    privileged: true
     environment:
       - node.name=es02
       - cluster.name=es-docker-cluster
@@ -51,6 +53,7 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
     container_name: es03
     restart: always
+    privileged: true
     environment:
       - node.name=es03
       - cluster.name=es-docker-cluster
