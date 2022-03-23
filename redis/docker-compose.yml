@@ -7,7 +7,7 @@ services:
     restart: always
     command: redis-server /usr/local/etc/redis/conf/redis.conf
     volumes: 
-      - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/redis/conf:/usr/local/etc/redis/conf
+      - ./conf:/usr/local/etc/redis/conf
     ports: 
       - 6379:6379
       - 16379:16379

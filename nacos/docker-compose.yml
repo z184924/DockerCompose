@@ -29,7 +29,7 @@ services:
       MYSQL_MASTER_SERVICE_USER: root
       MYSQL_MASTER_SERVICE_PASSWORD: zjy192.168.6.241
     volumes: 
-      - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/nacos/logs:/home/nacos/logs
+      - ./logs:/home/nacos/logs
     networks: 
       - public
 

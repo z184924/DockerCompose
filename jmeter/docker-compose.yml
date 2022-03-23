@@ -5,5 +5,5 @@ services:
     image: justb4/jmeter
     container_name: jmeter
     volumes: 
-      - /data/DockerCompose/jmeter/jmx/:/jmx/
+      - ./jmx/:/jmx/
     network_mode: host

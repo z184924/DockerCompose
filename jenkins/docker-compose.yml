@@ -8,7 +8,7 @@ services:
     ports: 
       - 10000:8080
     volumes: 
-      - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/jenkins/jenkins_home:/var/jenkins_home
+      - ./jenkins_home:/var/jenkins_home
 #      - /var/run/docker.sock:/var/run/docker.sock
 #      - /usr/bin/docker:/usr/bin/docker
     networks: 

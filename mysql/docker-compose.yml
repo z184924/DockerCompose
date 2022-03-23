@@ -9,8 +9,8 @@ services:
     ports: 
       - 3306:3306
     volumes: 
-      - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/mysql/data:/var/lib/mysql
-      - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/mysql/conf/conf.d:/etc/mysql/conf.d
+      - ./data:/var/lib/mysql
+      - ./conf/conf.d:/etc/mysql/conf.d
     environment:
       MYSQL_ROOT_PASSWORD: root
     privileged: true

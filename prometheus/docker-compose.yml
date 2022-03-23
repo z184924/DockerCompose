@@ -6,7 +6,7 @@ services:
     container_name: prometheus
     restart: always
     volumes:
-      - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/prometheus/prometheus/:/etc/prometheus/
+      - ./prometheus/:/etc/prometheus/
     ports:
       - 9090:9090
     networks: 
@@ -33,7 +33,7 @@ services:
     container_name: blackbox-exporter
     restart: always
     volumes:
-      - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/prometheus/blackbox_exporter/config/:/etc/blackbox_exporter/
+      - ./blackbox_exporter/config/:/etc/blackbox_exporter/
     ports:
       - 9115:9115
     networks: 
@@ -43,7 +43,7 @@ services:
     container_name: alertmanager
     restart: always
     volumes:
-      - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/prometheus/alertmanager/config/:/etc/alertmanager/
+      - ./alertmanager/config/:/etc/alertmanager/
     ports:
       - 9093:9093
     networks: 
@@ -53,7 +53,7 @@ services:
     container_name: grafana
     restart: always
     volumes:
-      - /tmp/docker-desktop-root/mnt/host/d/DockerCompose/prometheus/grafana/:/var/lib/grafana/
+      - ./grafana/:/var/lib/grafana/
     ports:
       - 3000:3000
     networks: 
