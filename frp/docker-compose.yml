@@ -1,0 +1,12 @@
+# Use root/example as user/password credentials
+version: '3.1'
+services:
+  frps:
+    image: snowdreamtech/frps
+    container_name: frps
+    privileged: true
+    restart: always
+    volumes:
+      - ./conf/frps.ini:/etc/frp/frps.ini
+      - ./log/:/var/log/
+    network_mode: host
