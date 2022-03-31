@@ -1,6 +1,6 @@
 global:
-  #scrape_interval: 15s # 默认15s 全局每次数据收集的间隔
-  #evaluation_interval: 15s # 规则扫描时间间隔是15秒，默认不填写是 1分钟
+  scrape_interval: 15s # 默认15s 全局每次数据收集的间隔
+  evaluation_interval: 15s # 规则扫描时间间隔是15秒，默认不填写是 1分钟
   #scrape_timeout: 5s    #超时时间
   #external_labels: # 用于外部系统标签的，不是用于metrics(度量)数据
 alerting:
@@ -27,27 +27,75 @@ scrape_configs:
       - targets: ['10.0.0.3:9100']
         labels:
           instance: '10.0.0.3'
-      - targets: ['10.0.0.5:9100']
+
+    - job_name: mysqld-exporter
+    static_configs:
+      - targets: ['10.10.0.85:9104']
         labels:
-          instance: '10.0.0.5'
-      - targets: ['10.0.0.247:9100']
+          instance: '10.10.0.85'
+      - targets: ['10.10.0.86:9104']
         labels:
-          instance: '10.0.0.247'          
-      - targets: ['10.0.0.248:9100']
+          instance: '10.10.0.86'
+
+  - job_name: redis-exporter
+    static_configs:
+      - targets: ['10.10.0.84:9121']
         labels:
-          instance: '10.0.0.248'  
-      - targets: ['10.0.0.249:9100']
+          instance: '10.10.0.84'
+      - targets: ['10.10.0.85:9121']
         labels:
-          instance: '10.0.0.249'  
-      - targets: ['10.0.0.250:9100']
+          instance: '10.10.0.85'
+      - targets: ['10.10.0.86:9121']
         labels:
-          instance: '10.0.0.250'  
-      - targets: ['10.0.0.251:9100']
-        labels:
-          instance: '10.0.0.251' 
-      - targets: ['10.0.0.252:9100']
-        labels:
-          instance: '10.0.0.252'
+          instance: '10.10.0.86'
+
+  - job_name: 'nacos'
+    metrics_path: '/nacos/actuator/prometheus'
+    static_configs:
+      - targets: ['10.10.0.88:8848','10.10.0.89:8848','10.10.0.90:8848']
+
+  - job_name: 'harbor-exporter'
+    scrape_interval: 20s
+    static_configs:
+      - targets: ['10.10.0.87:19000']
+
+  - job_name: 'harbor-core'
+    scrape_interval: 20s
+    params:
+      comp: ['core']
+    static_configs:
+      - targets: ['10.10.0.87:19000']
+
+  - job_name: 'harbor-registry'
+    scrape_interval: 20s
+    params:
+      comp: ['registry']
+    static_configs:
+      - targets: ['10.10.0.87:19000']
+
+  - job_name: 'harbor-jobservice'
+    scrape_interval: 20s
+    params:
+      comp: ['jobservice']
+    static_configs:
+      - targets: ['10.10.0.87:19000']
+
+  - job_name: 'blackbox-http-post-searchPerson'
+    metrics_path: /probe
+    params:
+      module: [http_post_2xx_searchPerson]
+    static_configs:
+      - targets:
+        - http://10.10.0.88:8201/search/person # 要检查的网址
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 10.10.0.87:9115
+
+
   - job_name: 'blackbox'
     metrics_path: /probe
     params:

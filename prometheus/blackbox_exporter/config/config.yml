@@ -5,67 +5,24 @@ modules:
     prober: http
     http:
       method: POST
-  http_post_2xx_GetRecommendNotificationsV3: ##用于post请求使用的模块）由于每个接口传参不同 可以定义多个module 用于不同接口（例如此命名为http_post_2xx_query 用于监测query.action接口 
+      
+  http_post_2xx_searchPerson: ##用于post请求使用的模块）由于每个接口传参不同 可以定义多个module 用于不同接口（例如此命名为http_post_2xx_query 用于监测query.action接口 
     prober: http
-    timeout: 3s
+    timeout: 5s
     http:
       preferred_ip_protocol: "ip4" ##使用ipv4
       method: POST
       headers:
         Content-Type: application/json ##header头
-        Authorization : eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyLUU4c0xJTFlcL0Zvc3lrNjhhWllBN1ZFMVRXRDBQRForUnNlTno0UEFYWkhYcElaaU8zaVBJcWdLTEhCZFRWVXJzS3dcL2RIXC9Ub1pKNlJOTTZcLzZmejQ5dVBHZlwvbmxCeXhEdlN1V05SUTg4QT09IiwidWlkIjoiNTRmNTExMmU0NWNlMWJjNmQ1NjNiOGQ5Iiwic3JjIjoiYW1pbmVyIiwicm9sZXMiOlsicm9zdGVyX2VkaXRvciIsInRlc3Ryb2xlIiwicnJ1c2VyIiwicm9vdCJdLCJpc3MiOiJhcGkuYW1pbmVyLm9yZyIsImV4cCI6MTYyODg1NzY5MCwiaWF0IjoxNjI2MjY1NjkwLCJqdGkiOiI1MTI3ZTM3ZGU0NGM3NzNkOTkyNjgwMzZjMWNlMWM4ZDU3NGNjNTc0YmIwZDE5Y2RiYWNlM2UwYjNmMDlkY2IzNDNhMzQxZWQ1MmMzODRlOTYzNzkxZDllZGM2OWFmOWNhZTI0YTQwYjhmYjEzNDVjZTVmYTk0MzVkZTRmYjk0YjIzZGMxMzI2NWJiZDkzMWU1NjNmNDU3MzhhM2U2MGVlNmM3NjU3NzQzOGMwYTliMWNhMGNiNjRkZjljOTAwZTA3NzdjYWVjNzM5MmVmZmZjMGFiNmE4YjNiYjYzMDI2N2E2YmZkNzBjMzQxYjlkYTBjYzUyZTA3M2IyN2E5MGQ3IiwiZW1haWwiOiJoZF95YW5neW1Ac2luYS5jb20ifQ.YR0qF8my-SEkS_RGYUCTC2lJp5SikPe-yc9wIqUVduA
       body: '
-      [
-    {
-        "action": "social.GetRecommendNotificationsV3",
-        "parameters": {
-            "num": 6,
-            "exclude_ids": [],
-            "keywords": [],
-            "sid": "868cc4e0-dd4d-4d19-8904-d0e2651fac7d"
-        },
-        "schema": {
-            "publication": [
-                "title",
-                "title_zh",
-                "authors",
-                "authors._id",
-                "authors.name",
-                "authors.name_zh",
-                "venue.info.name",
-                "venue.volume",
-                "venue.info.name_zh",
-                "venue.info.publisher",
-                "venue.issue",
-                "pages.start",
-                "pages.end",
-                "year",
-                "num_viewed",
-                "num_citation",
-                "doi",
-                "urls"
-            ],
-            "person": [
-                "name",
-                "avatar",
-                "img",
-                "name_zh",
-                "profile.position",
-                "profile.position_zh",
-                "profile.affiliation",
-                "profile.affiliation_zh",
-                {
-                    "indices": [
-                        "hindex",
-                        "pubs",
-                        "citations"
-                    ]
-                }
-            ]
-        }
-    }
-]
-      ' ##传参
+{
+    "needDetails": true,
+    "page": 0,
+    "query": "jie tang",
+    "size": 20
+}     
+' ##传参
+
   tcp_connect:
     prober: tcp
   pop3s_banner:
