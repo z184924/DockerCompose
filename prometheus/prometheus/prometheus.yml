@@ -17,18 +17,12 @@ scrape_configs:
         labels:
           instance: prometheus
   - job_name: node-exporter
-    static_configs:
-      - targets: ['10.0.0.1:9100']
-        labels:
-          instance: '10.0.0.1'
-      - targets: ['10.0.0.2:9100']
-        labels:
-          instance: '10.0.0.2'      
-      - targets: ['10.0.0.3:9100']
-        labels:
-          instance: '10.0.0.3'
+    file_sd_configs: 
+      - refresh_interval: 1m
+        files: 
+        - node-exporter.yml
 
-    - job_name: mysqld-exporter
+  - job_name: mysqld-exporter
     static_configs:
       - targets: ['10.10.0.85:9104']
         labels:
