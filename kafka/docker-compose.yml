@@ -1,0 +1,51 @@
+# Use root/example as user/password credentials
+version: '3.1'
+services:
+  kafka:
+    image: bitnami/kafka
+    container_name: kafka
+    restart: always
+    ports:
+      - '9092:9092'
+      - '9999:9999'
+    volumes:
+      - ./kafka/:/bitnami/kafka
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=192.168.6.135:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - JMX_PORT=9999
+    networks:
+      - public
+
+  kafka-exporter:
+    image: bitnami/kafka-exporter
+    container_name: kafka-exporter
+    restart: always
+    ports:
+      - '9308:9308'
+    command: --kafka.server=192.168.6.135:9092
+    networks:
+      - public
+
+  kafka-manager:
+    image: kafkamanager/kafka-manager
+    container_name: kafka-manager
+    restart: always
+    ports:
+      - '10389:389'
+      - '9000:9000'
+    environment:
+      - ZK_HOSTS=192.168.6.135:2181
+      - APPLICATION_SECRET=secret
+      - KAFKA_MANAGER_AUTH_ENABLED=true
+      - KAFKA_MANAGER_USERNAME=admin
+      - KAFKA_MANAGER_PASSWORD=password
+    networks:
+      - public
+  
+networks:
+  public:
+    external:
+      name: public
