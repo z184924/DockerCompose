@@ -45,7 +45,18 @@ services:
       - KAFKA_MANAGER_PASSWORD=password
     networks:
       - public
-  
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    container_name: kafka-ui
+    ports:
+     - '19001:8080'
+    environment:
+     - KAFKA_CLUSTERS_0_NAME=aminer
+     - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=192.168.6.135:9092
+    networks:
+      - public
+
 networks:
   public:
     external:
