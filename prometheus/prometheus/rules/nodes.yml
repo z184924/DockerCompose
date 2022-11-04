@@ -74,12 +74,12 @@ groups:
       description: "{{ $labels.instance }} of job {{$labels.job}}网络连接数超过3000,当前连接[{{ $value }}]."
 
   - alert: 网络待释放连接数过高
-    expr: node_sockstat_TCP_tw > 3000
+    expr: node_sockstat_TCP_tw > 20000
     for: 1m
     labels:
       severity: warning
     annotations:
       summary: "Instance {{ $labels.instance }} 网络待释放连接数过高"
-      description: "{{ $labels.instance }} of job {{$labels.job}}网络待释放连接数超过3000,当前待释放连接[{{ $value }}]."      
+      description: "{{ $labels.instance }} of job {{$labels.job}}网络待释放连接数超过20000,当前待释放连接[{{ $value }}]."      
 
 # 尽可能把详细告警信息写入summary标签值，因为告警短信/邮件/钉钉发送的内容使用了summary标签中的值。
