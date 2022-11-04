@@ -47,22 +47,22 @@ groups:
       description: "{{ $labels.instance }} of job {{$labels.job}}磁盘写入速率超过70MB/s,当前速率[{{ $value }}]MB/s." 
 
   - alert: 网络上传速率过高
-    expr: max(rate(node_network_transmit_bytes_total[1m])*8) by (instance) /1024/1024 > 100
+    expr: max(rate(node_network_transmit_bytes_total[1m])) by (instance) /1024/1024 > 100
     for: 1m
     labels:
       severity: warning
     annotations:
       summary: "Instance {{ $labels.instance }} 网络上传速率过高"
-      description: "{{ $labels.instance }} of job {{$labels.job}}网络上传速率超过100Mb/s,当前速率[{{ $value }}]Mb/s." 
+      description: "{{ $labels.instance }} of job {{$labels.job}}网络上传速率超过100MB/s,当前速率[{{ $value }}]MB/s." 
   
   - alert: 网络下载速率过高
-    expr: max(rate(node_network_receive_bytes_total[1m])*8) by (instance) /1024/1024 > 100
+    expr: max(rate(node_network_receive_bytes_total[1m])) by (instance) /1024/1024 > 100
     for: 1m
     labels:
       severity: warning
     annotations:
       summary: "Instance {{ $labels.instance }} 网络下载速率过高"
-      description: "{{ $labels.instance }} of job {{$labels.job}}网络下载速率超过100Mb/s,当前速率[{{ $value }}]Mb/s."
+      description: "{{ $labels.instance }} of job {{$labels.job}}网络下载速率超过100MB/s,当前速率[{{ $value }}]MB/s."
 
   - alert: 网络连接数过高
     expr: node_netstat_Tcp_CurrEstab > 3000
