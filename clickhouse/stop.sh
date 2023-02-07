@@ -1,1 +1,1 @@
-docker stop clickhouse-server
+docker-compose stop
