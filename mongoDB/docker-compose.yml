@@ -5,35 +5,40 @@ services:
 
   mongo0:
     container_name: mongo0
-    image: mongo:3.6.19
+    image: mongo:3.6.23
     restart: always
     command: --replSet replset0
-    ports: 
-    - "27017:27017"
-    networks: 
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/db0:/data/db
+    networks:
       - mongo
 
   mongo1:
     container_name: mongo1
-    image: mongo:3.6.19
+    image: mongo:3.6.23
     restart: always
     command: --replSet replset0
-    ports: 
-    - "27117:27017"
-    networks: 
+    ports:
+      - "27117:27017"
+    volumes:
+      - ./data/db1:/data/db
+    networks:
       - mongo
 
   mongo2:
     container_name: mongo2
-    image: mongo:3.6.19
+    image: mongo:3.6.23
     restart: always
     command: --replSet replset0
-    ports: 
-    - "27217:27017"
-    networks: 
+    ports:
+      - "27217:27017"
+    volumes:
+      - ./data/db2:/data/db
+    networks:
       - mongo
 
 networks:
   mongo:
     driver: bridge
-

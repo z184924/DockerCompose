@@ -49,9 +49,12 @@ services:
   kafka-ui:
     image: provectuslabs/kafka-ui
     container_name: kafka-ui
+    restart: always
     ports:
      - '19001:8080'
     environment:
+     - LOGGING_LEVEL_ROOT=info
+     - LOGGING_LEVEL_COM_PROVECTUS=info
      - KAFKA_CLUSTERS_0_NAME=aminer
      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=192.168.6.135:9092
     networks:
