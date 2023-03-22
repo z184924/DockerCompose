@@ -15,6 +15,19 @@ services:
         hard: 262144
     networks: 
       - public
+
+  clickhouse-exporter:
+    image: f1yegor/clickhouse-exporter
+    container_name: clickhouse-exporter
+    restart: always
+    environment:
+      - CLICKHOUSE_USER=default
+      - CLICKHOUSE_PASSWORD=
+    command: -scrape_uri=http://localhost:8123/
+    ports:
+      - 9116:9116
+    networks: 
+      - public
       
 networks:
   public:
