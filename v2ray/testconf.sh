@@ -1,0 +1,1 @@
+docker exec v2ray-nginx nginx -t
