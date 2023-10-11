@@ -1,1 +1,1 @@
-docker stop nginx
+docker compose stop

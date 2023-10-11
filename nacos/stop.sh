@@ -1,1 +1,1 @@
-docker stop nacos
+docker compose stop

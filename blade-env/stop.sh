@@ -1,1 +1,1 @@
-docker stop sentinel
+docker compose stop

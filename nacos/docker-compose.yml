@@ -12,6 +12,7 @@ services:
     privileged: true
     restart: always
     environment: 
+      #MODE: standalone
       PREFER_HOST_MODE: ip #如果支持主机名可以使用hostname,否则使用ip，默认也是ip
       SPRING_DATASOURCE_PLATFORM: mysql #数据源平台 仅支持mysql或不保存empty
       NACOS_APPLICATION_PORT: 8848
@@ -22,12 +23,12 @@ services:
       MYSQL_SERVICE_PORT: 3306
       MYSQL_SERVICE_DB_NAME: nacos
       MYSQL_SERVICE_USER: root
-      MYSQL_SERVICE_PASSWORD: zjy192.168.6.241
-      MYSQL_MASTER_SERVICE_HOST: 192.168.6.241 #mysql配置，Master为主节点，Slave为从节点
-      MYSQL_MASTER_SERVICE_PORT: 3306
-      MYSQL_MASTER_SERVICE_DB_NAME: nacos
-      MYSQL_MASTER_SERVICE_USER: root
-      MYSQL_MASTER_SERVICE_PASSWORD: zjy192.168.6.241
+      MYSQL_SERVICE_PASSWORD: root
+      #MYSQL_MASTER_SERVICE_HOST: 192.168.6.241 #mysql配置，Master为主节点，Slave为从节点
+      #MYSQL_MASTER_SERVICE_PORT: 3306
+      #MYSQL_MASTER_SERVICE_DB_NAME: nacos
+      #MYSQL_MASTER_SERVICE_USER: root
+      #MYSQL_MASTER_SERVICE_PASSWORD: root
     volumes: 
       - ./logs:/home/nacos/logs
     networks: 
