@@ -1,1 +1,1 @@
-docker stop frps
+docker compose stop
