@@ -2,11 +2,11 @@
 version: '3.1'
 services:
   frps:
-    image: snowdreamtech/frps
+    image: snowdreamtech/frps:0.52.1
     container_name: frps
     privileged: true
     restart: always
     volumes:
-      - ./conf/frps.ini:/etc/frp/frps.ini
+      - ./conf/frps.toml:/etc/frp/frps.toml
       - ./log/:/var/log/
     network_mode: host
