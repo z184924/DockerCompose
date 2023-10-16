@@ -25,7 +25,7 @@ kcpBindPort = 7000
 # transport.heartbeatTimeout = 90
 
 # Pool count in each proxy will keep no more than maxPoolCount.
-transport.maxPoolCount = 5
+transport.maxPoolCount = 100
 
 # If tcp stream multiplexing is used, default is true
 # transport.tcpMux = true
@@ -140,3 +140,15 @@ udpPacketSize = 1500
 
 # Retention time for NAT hole punching strategy data.
 natholeAnalysisDataReserveHours = 168
+
+#[[httpPlugins]]
+#name = "user-manager"
+#addr = "127.0.0.1:9000"
+#path = "/handler"
+#ops = ["Login"]
+
+#[[httpPlugins]]
+#name = "port-manager"
+#addr = "127.0.0.1:9001"
+#path = "/handler"
+#ops = ["NewProxy"]
