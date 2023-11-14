@@ -1,0 +1,50 @@
+version: '3.1'
+services:
+  canal-admin:
+    image: canal/canal-admin:v1.1.7
+    container_name: canal-admin
+    restart: always
+    privileged: true
+    mem_limit: 1G
+    ports:
+      - 18089:8089
+    volumes:
+      - ./logs/canal-admin:/home/admin/canal-admin/logs
+      # - ./conf/canal-admin:/home/admin/canal-admin/conf
+    environment:
+      - server.port=8089
+      - canal.adminUser=admin
+      - canal.adminPasswd=admin
+      - spring.datasource.address=192.168.6.135:3306
+      - spring.datasource.database=canal_manager
+      - spring.datasource.username=canal
+      - spring.datasource.password=canal
+    networks:
+      - canal
+
+  canal-server:
+    image: canal/canal-server:v1.1.7
+    container_name: canal-server
+    restart: always
+    privileged: true
+    mem_limit: 4G
+    ports:
+      - 11111:11111
+      - 11112:11112
+    depends_on:
+      - canal-admin
+    volumes:
+      - ./logs/canal-server:/home/admin/canal-server/logs
+      # - ./conf/canal-server:/home/admin/canal-server/conf
+      # - ./data/canal-server:/home/admin/data
+    environment:
+      - canal.admin.manager=canal-admin:8089
+      - canal.admin.port=11110
+      - canal.admin.user=admin
+      - canal.admin.passwd=4ACFE3202A5FF5CF467898FC58AAB1D615029441
+    networks:
+      - canal
+
+networks:
+  canal:
+    driver: bridge
