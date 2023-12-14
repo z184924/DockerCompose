@@ -1,0 +1,17 @@
+version: '3.1'
+services:
+  openvpn-server:
+    image: kylemanna/openvpn
+    container_name: openvpn-server
+    restart: always
+    privileged: true
+    ports:
+      - "1194:1194/udp"
+    volumes:
+      - ./data:/etc/openvpn
+    networks:
+      - public
+
+networks:
+  public:
+    external: true
