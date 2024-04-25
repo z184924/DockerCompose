@@ -1,0 +1,24 @@
+# Use root/example as user/password credentials
+version: '3.1'
+services:
+  gitlab-runner:
+    image: gitlab/gitlab-runner:latest
+    container_name: gitlab-runner
+    restart: always
+    privileged: true
+    ports:
+      - 8093:8093
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config:/etc/gitlab-runner
+      - ./log:/var/log/gitlab-runner
+    environment:
+      - GITLAB_RUNNER_DESCRIPTION=docker-runner
+      - GITLAB_RUNNER_EXECUTOR=docker
+    networks:
+      - public
+
+networks:
+  public:
+    external:
+      name: public
