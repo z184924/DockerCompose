@@ -13,9 +13,8 @@ services:
     environment: 
       #MODE: standalone
       PREFER_HOST_MODE: ip #如果支持主机名可以使用hostname,否则使用ip，默认也是ip
-      SPRING_DATASOURCE_PLATFORM: mysql #数据源平台 仅支持mysql或不保存empty
-      NACOS_APPLICATION_PORT: 8848
-      NACOS_SERVER_IP: 192.168.6.239 #多网卡情况下，指定ip或网卡
+      NACOS_SERVER_PORT: 8848
+      NACOS_SERVER_IP: 192.168.6.101 #多网卡情况下，指定ip或网卡
       NACOS_SERVERS: 192.168.6.101:8848 192.168.6.241:8848 #集群中其它节点[ip1:port ip2:port ip3:port]
       NACOS_AUTH_ENABLE: "true"
       NACOS_AUTH_TOKEN_EXPIRE_SECONDS: 18000
@@ -23,6 +22,7 @@ services:
       NACOS_AUTH_CACHE_ENABLE: "true"
       NACOS_AUTH_IDENTITY_KEY: "serverIdentity"
       NACOS_AUTH_IDENTITY_VALUE: "security"
+      SPRING_DATASOURCE_PLATFORM: mysql #数据源平台 仅支持mysql或不保存empty
       MYSQL_DATABASE_NUM: 1
       MYSQL_SERVICE_HOST: 192.168.6.101 #mysql配置
       MYSQL_SERVICE_PORT: 3306
