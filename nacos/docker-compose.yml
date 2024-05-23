@@ -1,34 +1,35 @@
 # Use root/example as user/password credentials
-version: '3.1'
+version: '3.8'
 services:
   nacos:
-    image: nacos/nacos-server:2.0.3
+    image: nacos/nacos-server:v2.3.2
     container_name: nacos
     ports: 
       - 8848:8848
       - 9555:9555
       - 9848:9848
       - 9849:9849
-    privileged: true
     restart: always
     environment: 
       #MODE: standalone
       PREFER_HOST_MODE: ip #如果支持主机名可以使用hostname,否则使用ip，默认也是ip
       SPRING_DATASOURCE_PLATFORM: mysql #数据源平台 仅支持mysql或不保存empty
       NACOS_APPLICATION_PORT: 8848
-      NACOS_SERVER_IP: 192.168.6.241 #多网卡情况下，指定ip或网卡
+      NACOS_SERVER_IP: 192.168.6.239 #多网卡情况下，指定ip或网卡
       NACOS_SERVERS: 192.168.6.101:8848 192.168.6.241:8848 #集群中其它节点[ip1:port ip2:port ip3:port]
+      NACOS_AUTH_ENABLE: "true"
+      NACOS_AUTH_TOKEN_EXPIRE_SECONDS: 18000
+      NACOS_AUTH_TOKEN: SecretKey012345678901234567890123456789012345678901234567890123456789
+      NACOS_AUTH_CACHE_ENABLE: "true"
+      NACOS_AUTH_IDENTITY_KEY: "serverIdentity"
+      NACOS_AUTH_IDENTITY_VALUE: "security"
       MYSQL_DATABASE_NUM: 1
-      MYSQL_SERVICE_HOST: 192.168.6.241 #mysql配置，Master为主节点，Slave为从节点
+      MYSQL_SERVICE_HOST: 192.168.6.101 #mysql配置
       MYSQL_SERVICE_PORT: 3306
       MYSQL_SERVICE_DB_NAME: nacos
-      MYSQL_SERVICE_USER: root
-      MYSQL_SERVICE_PASSWORD: root
-      #MYSQL_MASTER_SERVICE_HOST: 192.168.6.241 #mysql配置，Master为主节点，Slave为从节点
-      #MYSQL_MASTER_SERVICE_PORT: 3306
-      #MYSQL_MASTER_SERVICE_DB_NAME: nacos
-      #MYSQL_MASTER_SERVICE_USER: root
-      #MYSQL_MASTER_SERVICE_PASSWORD: root
+      MYSQL_SERVICE_USER: nacos
+      MYSQL_SERVICE_PASSWORD: nacos
+      MYSQL_SERVICE_DB_PARAM: characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&serverTimezone=UTC
     volumes: 
       - ./logs:/home/nacos/logs
     networks: 
