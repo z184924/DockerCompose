@@ -2,7 +2,7 @@
 version: '3.1'
 services:
   frps:
-    image: snowdreamtech/frps:0.57.0
+    image: snowdreamtech/frps:0.59.0
     container_name: frps
     privileged: true
     restart: always
