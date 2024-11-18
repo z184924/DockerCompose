@@ -1,0 +1,1 @@
+cat $1 |grep xxxHost.xxxService|awk '{print $11}'| awk -F'[][]' '{print $2}' | awk -F':' '{print $1}' | sort | uniq -c | sort -nr

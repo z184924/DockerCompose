@@ -1,0 +1,1 @@
+sudo iptables -D INPUT -s 104.245.107.121 -j DROP
