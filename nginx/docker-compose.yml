@@ -2,7 +2,7 @@
 version: '3.1'
 services:
   nginx:
-    image: nginx
+    image: nginx:1.26.3
     container_name: nginx
     restart: always
     volumes:
@@ -11,7 +11,7 @@ services:
       - ./conf/blackip.conf:/etc/nginx/blackip.conf
       - ./share/:/usr/share/nginx/html/
       - ./log/:/var/log/nginx/
-      - ./certs/:/etc/ssl/certs/
+      - ./certs/:/etc/nginx/certs/
     environment:
       - NGINX_HOST=test
       - NGINX_PORT=80
