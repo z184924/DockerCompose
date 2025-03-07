@@ -1,1 +1,1 @@
-nohup docker compose -f docker-compose.yml up 2>&1>docker-nohup.out &
+nohup docker compose -f docker-compose.yml up >docker-nohup.out 2>&1 &
