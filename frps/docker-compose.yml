@@ -1,8 +1,6 @@
-# Use root/example as user/password credentials
-version: '3.1'
 services:
   frps:
-    image: snowdreamtech/frps:0.61.1
+    image: snowdreamtech/frps:0.62.1
     container_name: frps
     privileged: true
     restart: always
