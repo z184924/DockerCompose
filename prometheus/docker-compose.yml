@@ -7,6 +7,10 @@ services:
     restart: always
     volumes:
       - ./prometheus/:/etc/prometheus/
+    command:
+      - '--storage.tsdb.retention.time=90d'
+      - '--storage.tsdb.retention.size=100GB'
+      - '--config.file=/etc/prometheus/prometheus.yml'
     ports:
       - 9090:9090
     networks: 
