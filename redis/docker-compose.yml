@@ -1,6 +1,6 @@
 services:
   redis:
-    image: redis
+    image: redis:8.2.3
     container_name: redis
     restart: always
     command: redis-server /usr/local/etc/redis/conf/redis.conf
