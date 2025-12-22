@@ -1,6 +1,7 @@
 services:
   postgres:
-    image: postgres:15
+    image: postgres:18
+    # image: pgvector/pgvector:pg18
     container_name: postgres
     restart: always
     ports: 
