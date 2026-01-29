@@ -7,7 +7,7 @@ services:
     privileged: true
     restart: always
     volumes: 
-      - /Users/aminer/Documents/DockerCompose/baota/wwwroot:/www/wwwroot
+      - ./wwwroot:/www/wwwroot
     network_mode: host
       
       
