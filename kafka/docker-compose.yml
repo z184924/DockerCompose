@@ -1,66 +1,58 @@
-# Use root/example as user/password credentials
-version: '3.1'
 services:
   kafka:
-    image: bitnami/kafka
+    image: apache/kafka:4.1.1
     container_name: kafka
     restart: always
     ports:
       - '9092:9092'
-      - '9999:9999'
+      - "9997:9997"
     volumes:
-      - ./kafka/:/bitnami/kafka
+      - ./kafka-data:/var/lib/kafka/data
     environment:
-      - KAFKA_BROKER_ID=1
-      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://192.168.6.135:9092
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=192.168.6.135:2181
-      - ALLOW_PLAINTEXT_LISTENER=yes
-      - JMX_PORT=9999
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://:9092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_NUM_PARTITIONS: 1
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+      KAFKA_JMX_PORT: 9997
+      KAFKA_JMX_OPTS: -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=kafka -Dcom.sun.management.jmxremote.rmi.port=9997
     networks:
       - public
 
   kafka-exporter:
-    image: bitnami/kafka-exporter
+    image: danielqsj/kafka-exporter
     container_name: kafka-exporter
     restart: always
     ports:
       - '9308:9308'
-    command: --kafka.server=192.168.6.135:9092
-    networks:
-      - public
-
-  kafka-manager:
-    image: kafkamanager/kafka-manager
-    container_name: kafka-manager
-    restart: always
-    ports:
-      - '10389:389'
-      - '9000:9000'
-    environment:
-      - ZK_HOSTS=192.168.6.135:2181
-      - APPLICATION_SECRET=secret
-      - KAFKA_MANAGER_AUTH_ENABLED=true
-      - KAFKA_MANAGER_USERNAME=admin
-      - KAFKA_MANAGER_PASSWORD=password
+    command: --kafka.server=kafka:9092
     networks:
       - public
 
   kafka-ui:
-    image: provectuslabs/kafka-ui
+    image: ghcr.io/kafbat/kafka-ui:fc34cfe
     container_name: kafka-ui
     restart: always
     ports:
      - '19001:8080'
     environment:
-     - LOGGING_LEVEL_ROOT=info
-     - LOGGING_LEVEL_COM_PROVECTUS=info
-     - KAFKA_CLUSTERS_0_NAME=aminer
-     - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=192.168.6.135:9092
+      LOGGING_LEVEL_ROOT: info
+      LOGGING_LEVEL_COM_PROVECTUS: info
+      KAFKA_CLUSTERS_0_NAME: kafka
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_METRICS_PORT: 9997
+      DYNAMIC_CONFIG_ENABLED: 'true'
     networks:
       - public
 
 networks:
   public:
-    external:
-      name: public
+    external: true

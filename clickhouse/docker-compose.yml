@@ -1,14 +1,17 @@
-version: '3.1'
 services:
-  clickhouse-server:
-    image: yandex/clickhouse-server
-    container_name: clickhouse-server
+  clickhouse:
+    image: clickhouse:25.8
+    container_name: clickhouse
     restart: always
     volumes:
       - ./clickhouse_database:/var/lib/clickhouse
+      - ./clickhouse_logs:/var/log/clickhouse-server/
     ports:
       - 8123:8123
       - 9000:9000
+    environment:
+      CLICKHOUSE_USER: "default"
+      CLICKHOUSE_PASSWORD: "123456"
     ulimits:
       nofile:
         soft: 262144
@@ -22,8 +25,8 @@ services:
     restart: always
     environment:
       - CLICKHOUSE_USER=default
-      - CLICKHOUSE_PASSWORD=
-    command: -scrape_uri=http://localhost:8123/
+      - CLICKHOUSE_PASSWORD=123456
+    command: -scrape_uri=http://clickhouse:8123/
     ports:
       - 9116:9116
     networks: 
@@ -31,5 +34,4 @@ services:
       
 networks:
   public:
-    external:
-      name: public
+    external: true
