@@ -2,9 +2,11 @@ services:
   mongo0:
     container_name: mongo0
     image: mongo:3.6.23
+    # image: mongo:4.4.29
     restart: always
     command: --replSet replset0
-    # command: --replSet replset0 --auth --keyFile /data/mongo.key
+    # command: --replSet replset0 --keyFile /data/mongo.key
+    # command: --replSet replset0 --keyFile /data/mongo.key --auth 
     ports:
       - "27017:27017"
     volumes:
@@ -18,7 +20,8 @@ services:
     image: mongo:3.6.23
     restart: always
     command: --replSet replset0
-    # command: --replSet replset0 --auth --keyFile /data/mongo.key
+    # command: --replSet replset0 --keyFile /data/mongo.key
+    # command: --replSet replset0 --keyFile /data/mongo.key --auth
     ports:
       - "27117:27017"
     volumes:
@@ -32,7 +35,8 @@ services:
     image: mongo:3.6.23
     restart: always
     command: --replSet replset0
-    # command: --replSet replset0 --auth --keyFile /data/mongo.key
+    # command: --replSet replset0 --keyFile /data/mongo.key
+    # command: --replSet replset0 --keyFile /data/mongo.key --auth 
     ports:
       - "27217:27017"
     volumes:
