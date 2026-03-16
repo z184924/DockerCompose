@@ -43,4 +43,17 @@ exit
 
 ## 7. 退出容器并禁用匿名登录
 
-修改docker-compose.yml文件，在启动命令command中添加`--auth`参数
+### 生成一个随机的 base64 字符串作为密钥
+
+```shell
+openssl rand -base64 756 > mongo.key
+```
+
+### 设置文件权限为 400 (只读)，MongoDB 对此文件权限要求很严格
+
+```shell
+sudo chown 999:999 mongo.key
+sudo chmod 400 mongo.key
+```
+
+修改docker-compose.yml文件，在启动命令command中添加`--auth --keyFile /data/mongo.key`参数
