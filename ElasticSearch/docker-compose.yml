@@ -3,10 +3,9 @@
 # 执行sudo sysctl -p生效
 services:
   es01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.18.8
     container_name: es01
     restart: always
-    privileged: true
     environment:
       - node.name=es01
       - cluster.name=es-docker-cluster
@@ -33,10 +32,9 @@ services:
       - elastic
       
   es02:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.18.8
     container_name: es02
     restart: always
-    privileged: true
     environment:
       - node.name=es02
       - cluster.name=es-docker-cluster
@@ -59,10 +57,9 @@ services:
       - elastic
 
   es03:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.18.8
     container_name: es03
     restart: always
-    privileged: true
     environment:
       - node.name=es03
       - cluster.name=es-docker-cluster
@@ -85,7 +82,7 @@ services:
       - elastic
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:8.12.2
+    image: docker.elastic.co/kibana/kibana:8.18.8
     container_name: kibana
     restart: always
     ports:
