@@ -1,0 +1,35 @@
+services:
+  rustfs:
+    container_name: rustfs
+    image: rustfs/rustfs:1.0.0-alpha.90
+    ports:
+      - "9001:9001"
+      - "9000:9000"
+    volumes:
+      - ./data:/data
+      - ./logs:/app/logs
+    environment:
+      # API 和控制台监听地址
+      - RUSTFS_ADDRESS=0.0.0.0:9000
+      - RUSTFS_CONSOLE_ADDRESS=0.0.0.0:9001
+      - RUSTFS_CONSOLE_ENABLE=true
+      # CORS 设置，控制台与 S3 API 都放开来源
+      - RUSTFS_CORS_ALLOWED_ORIGINS=*
+      - RUSTFS_CONSOLE_CORS_ALLOWED_ORIGINS=*
+      # 访问密钥（生产环境请修改为强密码）
+      - RUSTFS_ACCESS_KEY=rustfsadmin
+      - RUSTFS_SECRET_KEY=rustfsadmin
+      # 日志级别
+      - RUSTFS_OBS_LOGGER_LEVEL=info
+    networks:
+      - public
+    healthcheck:
+      test: ["CMD", "sh", "-c", "curl -f http://localhost:9000/health && curl -f http://localhost:9001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  public:
+    external: true
