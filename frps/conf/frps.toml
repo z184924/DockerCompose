@@ -81,7 +81,7 @@ webServer.pprofEnable = false
 enablePrometheus = true
 
 # console or real logFile path like ./frps.log
-log.to = "./frps.log"
+log.to = "/var/log/frps/frps.log"
 # trace, debug, info, warn, error
 log.level = "info"
 log.maxDays = 3

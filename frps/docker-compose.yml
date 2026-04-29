@@ -1,10 +1,10 @@
 services:
   frps:
-    image: snowdreamtech/frps:0.62.1
+    image: snowdreamtech/frps:0.67.0
     container_name: frps
     privileged: true
     restart: always
     volumes:
       - ./conf/frps.toml:/etc/frp/frps.toml
-      - ./log/:/var/log/
+      - ./log/:/var/log/frps/
     network_mode: host

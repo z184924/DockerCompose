@@ -1,10 +1,10 @@
 services:
   frpc:
-    image: snowdreamtech/frpc:0.62.1
+    image: snowdreamtech/frpc:0.67.0
     container_name: frpc
     privileged: true
     restart: always
     volumes:
       - ./conf/frpc.toml:/etc/frp/frpc.toml
-      - ./log/:/var/log/
+      - ./log/:/var/log/frpc/
     network_mode: host
