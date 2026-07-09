@@ -1,10 +1,11 @@
 services:
   rustfs:
     container_name: rustfs
-    image: rustfs/rustfs:1.0.0-alpha.90
+    image: rustfs/rustfs:1.0.0-beta.8
     ports:
       - "9001:9001"
       - "9000:9000"
+    # 挂载路径需要用户组设置为10001:10001，否则会出现权限问题
     volumes:
       - ./data:/data
       - ./logs:/app/logs
