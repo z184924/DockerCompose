@@ -6,6 +6,7 @@ services:
     volumes:
       - ./clickhouse_database:/var/lib/clickhouse
       - ./clickhouse_logs:/var/log/clickhouse-server/
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - 8123:8123
       - 9000:9000

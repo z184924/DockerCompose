@@ -35,7 +35,7 @@ rs.status()
 ## 3. 设置允许副本读取
 
 ```shell
-db.getMongo().setSlaveOk()
+db.getMongo().setSecondaryOk()
 ```
 
 ## 4. 创建管理员用户

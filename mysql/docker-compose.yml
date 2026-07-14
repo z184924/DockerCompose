@@ -9,6 +9,7 @@ services:
     volumes: 
       - ./data:/var/lib/mysql
       - ./conf/conf.d:/etc/mysql/conf.d
+      - /etc/localtime:/etc/localtime:ro
     environment:
       MYSQL_ROOT_PASSWORD: root
     privileged: true

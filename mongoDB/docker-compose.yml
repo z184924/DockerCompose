@@ -12,6 +12,7 @@ services:
     volumes:
       - ./data/db0:/data/db
       # - ./data/mongo.key:/data/mongo.key
+      - /etc/localtime:/etc/localtime:ro
     networks:
       - mongo
 
@@ -27,6 +28,7 @@ services:
     volumes:
       - ./data/db1:/data/db
       # - ./data/mongo.key:/data/mongo.key
+      - /etc/localtime:/etc/localtime:ro
     networks:
       - mongo
 
@@ -42,6 +44,7 @@ services:
     volumes:
       - ./data/db2:/data/db
       # - ./data/mongo.key:/data/mongo.key
+      - /etc/localtime:/etc/localtime:ro
     networks:
       - mongo
 
