@@ -23,6 +23,9 @@ services:
         soft: -1
         hard: -1
     volumes:
+      # data01目录权限需要修改，否则会报错
+      # sudo chown -R 1000:0 ./data01
+      # sudo chown -R 775 ./data01
       - ./data/data01:/usr/share/elasticsearch/data
       - ./plugins:/usr/share/elasticsearch/plugins
     ports:
