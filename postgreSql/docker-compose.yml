@@ -18,7 +18,7 @@ services:
       - public
       
   adminer:
-    image: adminer
+    image: adminer:5.5.0
     container_name: postgres-adminer
     restart: always
     ports:

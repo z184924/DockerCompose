@@ -1,6 +1,6 @@
 services:
   kafka:
-    image: apache/kafka:4.1.1
+    image: apache/kafka:4.3.1
     container_name: kafka
     restart: always
     ports:
@@ -39,7 +39,7 @@ services:
       - public
 
   kafka-ui:
-    image: ghcr.io/kafbat/kafka-ui:fc34cfe
+    image: ghcr.io/kafbat/kafka-ui:260f9e8
     container_name: kafka-ui
     restart: always
     ports:
