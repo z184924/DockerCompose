@@ -1,7 +1,7 @@
 services:
   neo4j:
     container_name: neo4j
-    image: neo4j:5.26.16-community
+    image: neo4j:5.26.28-community
     restart: always
     volumes:
         - ./logs:/logs

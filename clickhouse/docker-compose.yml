@@ -1,6 +1,6 @@
 services:
   clickhouse:
-    image: clickhouse:25.8
+    image: clickhouse:26.6
     container_name: clickhouse
     restart: always
     volumes:
