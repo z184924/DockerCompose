@@ -39,7 +39,7 @@ services:
       - public
 
   kafka-ui:
-    image: ghcr.io/kafbat/kafka-ui:260f9e8
+    image: kafbat/kafka-ui:07c4351
     container_name: kafka-ui
     restart: always
     ports:
