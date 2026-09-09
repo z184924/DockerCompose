@@ -1,2 +1,3 @@
 *.log
 jenkins/jenkins_home/*
+.vscode

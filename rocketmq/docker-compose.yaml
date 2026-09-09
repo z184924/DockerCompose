@@ -1,0 +1,83 @@
+services:
+  namesrv:
+    image: apache/rocketmq:5.3.2
+    container_name: rmqnamesrv
+    restart: always
+    ports:
+      - 9876:9876
+    # 目录拥有者需为 3000:3000（镜像内 rocketmq 用户），否则启动报权限错误：
+    # sudo chown -R 3000:3000 data
+    volumes:
+      - ./data/namesrv/logs:/home/rocketmq/logs
+    networks:
+      - rocketmq
+    command: sh mqnamesrv
+
+  broker:
+    image: apache/rocketmq:5.3.2
+    container_name: rmqbroker
+    # 固定 broker 名。默认是随机容器 ID,down/up 后会变
+    hostname: broker-a
+    restart: always
+    ports:
+      - 10909:10909
+      - 10911:10911
+      - 10912:10912
+    environment:
+      - NAMESRV_ADDR=rmqnamesrv:9876
+    depends_on:
+      - namesrv
+    command: sh mqbroker
+    volumes:
+      - ./data/broker/logs:/home/rocketmq/logs
+      # 消息存储目录，挂载后 down/up 不丢数据
+      - ./data/broker/store:/home/rocketmq/store
+      # 如需自定义 broker 配置，再挂载 conf 并改为：
+      # command: sh mqbroker -c /home/rocketmq/conf/broker.conf
+      # - ./data/broker/conf:/home/rocketmq/conf
+    healthcheck:
+      test: ["CMD-SHELL", "sh mqadmin clusterList -n rmqnamesrv:9876 | grep broker-a"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+    networks:
+      - rocketmq
+
+  proxy:
+    image: apache/rocketmq:5.3.2
+    container_name: rmqproxy
+    networks:
+      - rocketmq
+    depends_on:
+      namesrv:
+        condition: service_started
+      broker:
+        condition: service_healthy
+    ports:
+      - 18080:8080
+      - 18081:8081
+    restart: always
+    environment:
+      - NAMESRV_ADDR=rmqnamesrv:9876
+    command: sh mqproxy
+  
+  dashboard:
+    image: apacherocketmq/rocketmq-dashboard:2.1.0
+    container_name: rocketmq-dashboard
+    restart: always
+    ports:
+      - 19876:8082
+    depends_on:
+      namesrv:
+        condition: service_started
+      broker:
+        condition: service_healthy
+    networks:
+      - rocketmq
+    environment:
+      JAVA_OPTS: "-Drocketmq.namesrv.addr=rmqnamesrv:9876"
+    
+networks:
+  rocketmq:
+    driver: bridge
