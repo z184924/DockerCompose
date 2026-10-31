@@ -9,5 +9,6 @@ services:
       - ./conf/blackip.conf:/etc/nginx/blackip.conf
       - ./share/:/usr/share/nginx/html/
       - ./log/:/var/log/nginx/
-      - ./certs/:/etc/nginx/certs/
+      - ./certs/:/etc/nginx/certs/:ro
+      - /etc/localtime:/etc/localtime:ro
     network_mode: host
