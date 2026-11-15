@@ -1,0 +1,19 @@
+# Use root/example as user/password credentials
+version: '3.1'
+services:
+  xray:
+    image: ghcr.io/xtls/xray-core:26.11.9
+    container_name: xray
+    restart: always
+    volumes:
+      - ./config/config.json:/etc/xray/config.json
+    entrypoint: ["/usr/local/bin/xray"]
+    command: ["run", "-c", "/etc/xray/config.json"]
+    ports: 
+      - 10808:10808
+    networks: 
+      - xary
+
+networks:
+  xary:
+    driver: bridge
