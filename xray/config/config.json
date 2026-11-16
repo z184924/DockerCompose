@@ -2,6 +2,23 @@
   "log": {
     "loglevel": "warning"
   },
+  "observatory": {
+    "subjectSelector": ["proxy-"],
+    "probeURL": "https://www.google.com/generate_204",
+    "probeInterval": "5m",
+    "enableConcurrency": false
+  },
+  "burstObservatory": {
+    "subjectSelector": ["proxy-"],
+    "pingConfig": {
+        "destination": "https://connectivitycheck.gstatic.com/generate_204",
+        "connectivity": "",
+        "interval": "10m",
+        "sampling": 10,
+        "timeout": "5s",
+        "httpMethod": "HEAD"
+    }
+  },
   "dns": {
     "hosts": {
       "dns.google": [
@@ -146,7 +163,7 @@
   ],
   "outbounds": [
     {
-      "tag": "proxy",
+      "tag": "proxy-1",
       "protocol": "shadowsocks",
       "settings": {
         "address": "202.50.253.72",
@@ -175,6 +192,29 @@
   ],
   "routing": {
     "domainStrategy": "AsIs",
+    "balancers": [
+      {
+        "tag": "proxy-balancer",
+        "selector": ["proxy-"],
+        "fallbackTag": "direct",
+        "strategy": { 
+            "type": "leastLoad",
+            "settings": {
+                "expected": 2,
+                "maxRTT": "1s",
+                "tolerance": 0.01,
+                "baselines": ["1s"],
+                "costs": [
+                    {
+                    "regexp": false,
+                    "match": "tag",
+                    "value": 0.5
+                    }
+                ]
+            }
+        }
+      }
+    ],
     "rules": [
       {
         "type": "field",
